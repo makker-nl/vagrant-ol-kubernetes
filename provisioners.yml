@@ -56,7 +56,7 @@ installkubeclis:
   user: "oracle"
   run: "never"
   absoluteScript: "/vagrant/scripts/install-kube-clis.sh"
-kubeadminInit:
+kubeadmin-init:
   name: "kubeadmInit"
   description: "Kubeadm Init"
   user: "oracle"
