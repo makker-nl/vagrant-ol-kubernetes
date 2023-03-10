@@ -56,7 +56,11 @@ def provision(vmconf, provisioner)
   elsif provisioner['absoluteScript'] then
     script = provisioner['absoluteScript']
   end  
-  vmconf.vm.provision provisionerName, type: "shell", run: runType, path: RUN_AS_SCR, args: [description, script, runAsUser]
+  if  provisioner['arg']
+     vmconf.vm.provision provisionerName, type: "shell", run: runType, path: RUN_AS_SCR, args: [description, script, runAsUser, provisioner['arg']]
+  else
+    vmconf.vm.provision provisionerName, type: "shell", run: runType, path: RUN_AS_SCR, args: [description, script, runAsUser]
+  end  
 end
 #
 # Provision docker
@@ -86,6 +90,8 @@ Vagrant.configure("2") do |config|
   (1..NUM_MASTER_NODE).each do |i|
       config.vm.define settings['master']['machine']+"-#{i}" do |node|
         nodeSettings=settings['master']
+        STAGE_GUEST_FOLDER=nodeSettings['sharedFolders']['stage']['guestFolder']
+        STAGE_COMMON_SCRIPTS = STAGE_GUEST_FOLDER+"/commonScripts"        
         # VirtualBox settings
         node.vm.provider "virtualbox" do |vb|
             vbName  = nodeSettings['name']+"-#{i}"
@@ -103,16 +109,12 @@ Vagrant.configure("2") do |config|
         add_shared_folder(node, nodeSettings['sharedFolders']['stage']) 
         add_shared_folder(node, nodeSettings['sharedFolders']['project']) 
         # Provisioners
-        node.vm.provision "setup-hosts", :type => "shell", :path => "scripts/setup-hosts.sh" do |s|
-          s.args = ["eth1"]
-        end
-        node.vm.provision "update-dns", type: "shell", :path => "scripts/update-dns.sh"
-        #
-        STAGE_GUEST_FOLDER=nodeSettings['sharedFolders']['stage']['guestFolder']
-        STAGE_COMMON_SCRIPTS = STAGE_GUEST_FOLDER+"/commonScripts"
-        #
-        # Common Provisioners
-        #
+        #node.vm.provision "setup-hosts", :type => "shell", :path => "scripts/setup-hosts.sh" do |s|
+        #  s.args = ["eth1"]
+        #end
+        #node.vm.provision "update-dns", type: "shell", :path => "scripts/update-dns.sh"        
+        provision(config, provisioners['setuphosts'])
+        provision(config, provisioners['updatedns'])       
         provision(config, provisioners['preplinux'])
         provision(config, provisioners['initfilesystem'])
         provision(config, provisioners['addoracleuser'])
@@ -128,6 +130,8 @@ Vagrant.configure("2") do |config|
   (1..NUM_WORKER_NODE).each do |i|
      config.vm.define settings['worker']['machine']+"-#{i}" do |node|
         nodeSettings=settings['worker']
+        STAGE_GUEST_FOLDER=nodeSettings['sharedFolders']['stage']['guestFolder']
+        STAGE_COMMON_SCRIPTS = STAGE_GUEST_FOLDER+"/commonScripts"        
         # VirtualBox settings
         node.vm.provider "virtualbox" do |vb|
             vbName  = nodeSettings['name']+"-#{i}"
@@ -145,18 +149,15 @@ Vagrant.configure("2") do |config|
         add_shared_folder(node, nodeSettings['sharedFolders']['stage']) 
         add_shared_folder(node, nodeSettings['sharedFolders']['project']) 
         # Provisioners
-        node.vm.provision "setup-hosts", :type => "shell", :path => "scripts/setup-hosts.sh" do |s|
-          s.args = ["eth1"]
-        end
-        node.vm.provision "update-dns", type: "shell", :path => "scripts/update-dns.sh"
-        #
-        STAGE_GUEST_FOLDER=nodeSettings['sharedFolders']['stage']['guestFolder']
-        STAGE_COMMON_SCRIPTS = STAGE_GUEST_FOLDER+"/commonScripts"
-        #
-        # Common Provisioners
         provision(config, provisioners['preplinux'])
         provision(config, provisioners['initfilesystem'])
-        provision(config, provisioners['addoracleuser'])
+        provision(config, provisioners['addoracleuser'])        
+        #node.vm.provision "setup-hosts", :type => "shell", :path => "scripts/setup-hosts.sh" do |s|
+        #  s.args = ["eth1"]
+        #end
+        #node.vm.provision "update-dns", type: "shell", :path => "scripts/update-dns.sh"
+        provision(config, provisioners['setuphosts'])
+        provision(config, provisioners['updatedns'])  
         provision(config, provisioners['setupbridgedtraffic'])
         vagrantProvisionDocker(config, provisioners['docker'])
         provision(config, provisioners['cri-docker'])

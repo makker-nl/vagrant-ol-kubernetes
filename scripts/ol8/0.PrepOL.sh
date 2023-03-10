@@ -20,7 +20,8 @@ echo Install Haveged
 sudo dnf -y install haveged
 #
 echo Disable swap for Kubernetes
-swapoff -a && sed -i ‘/ swap / s/^/#/’ /etc/fstab
+sudo swapoff -a 
+sudo sed -i '/ swap / s/^/#/' /etc/fstab
 #
 echo 'Allow PasswordAuthhentication'
 sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.org

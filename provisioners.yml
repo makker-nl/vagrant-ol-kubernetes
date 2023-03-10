@@ -16,6 +16,19 @@ addoracleuser:
   user: "vagrant"
   run: "once"
   absoluteScript: "/vagrant/scripts/ol8/2.MakeOracleUser.sh"
+setuphosts:
+  name: "setupHosts"
+  description: "Setup Hosts"
+  user: "vagrant"
+  run: "never"
+  arg: "eth1"
+  absoluteScript: "/vagrant/scripts/setup-hosts.sh"  
+updatedns:
+  name: "updateDNS"
+  description: "Update DNS"
+  user: "vagrant"
+  run: "never"
+  absoluteScript: "/vagrant/scripts/update-dns.sh"
 setupbridgedtraffic:
   name: "setupBridgedTraffic"
   description: "Setup BridgedTrafic."

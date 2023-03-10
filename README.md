@@ -1,5 +1,7 @@
 # Vagrant - Oracle Linux 8  - Kubernetes 
 Vagrant project to install Kubernetes cluster on Oracle Linux 8
+This project is based on [Certified Kubernetes Administrator (CKA) Course](https://github.com/kodekloudhub/certified-kubernetes-administrator-course).
+However, I made it configurable through both the [settings.yml]
 
 ## Settings
 
@@ -33,3 +35,6 @@ This script performs the following:
 * Add Oracle to sudoers so he can perform admin tasks
 * Grant/Change owner /app to oracle:oinstall 
 * Create /app/opensource for oracle:oinstall 
+
+## Take Snapshots
+The (Windows) script [takesnapshots.cmd](takesnapshots.cmd) creates a current snapshot for each of the VMs (kubemaster-1, kubeworker-1, and kubeworker-2.). The snapshots are indicated by the current date.
