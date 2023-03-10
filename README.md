@@ -7,11 +7,20 @@ However, I made it configurable through both the [settings.yml]
 
 ## Provisioners
 
-| **Name** | **Provisoners.yaml entry** | **Run** | **Run as user** | **Script** | **Description** |
-| -------- | -------------------------- | ------- | --------------- | ---------- | --------------- |
-| prepLinux  | preplinux | once | vagrant | /vagrant/scripts/ol8/0.PrepOL.sh | Prepare linux" |
-| initFileSystem | initfilesystem | once |  vagrant | /vagrant/scripts/ol8/1.FileSystem.sh | Initialize Filesystem on disk 2 |
-| addOracleUser | addoracleuser | once |  vagrant | /vagrant/scripts/ol8/2.MakeOracleUser.sh | Add Oracle User. |
+| **Name** | **Provisoners.yaml entry** | **Description** |  **Run as user** | **Run** | **Script** | 
+| -------- | -------------------------- | --------------- | ------- | --------------- | ---------- |
+| prepLinux  | preplinux |  Prepare linux | vagrant | once |/vagrant/scripts/ol8/0.PrepOL.sh |
+| initFileSystem | initfilesystem | Initialize Filesystem on disk 2 | vagrant | once | /vagrant/scripts/ol8/1.FileSystem.sh |
+| addOracleUser | addoracleuser | Add Oracle User. | vagrant | once | /vagrant/scripts/ol8/2.MakeOracleUser.sh |
+| setuphosts | setupHosts | Setup Hosts | vagrant | never | /vagrant/scripts/setup-hosts.sh |
+| updateDNS | updatedns | Update DNS | vagrant | never | /vagrant/scripts/update-dns.sh |
+| setupBridgedTraffic | setupbridgedtraffic | Setup BridgedTrafic. | vagrant | never | /vagrant/scripts/setup-bridged-traffic.sh | 
+| installDocker | docker |  Docker | oracle | never | /opensource/docker/co8InstallDockerAs.sh | 
+| installCRIDocker | cri-docker| CRI-Docker. | oracle | never | /vagrant/scripts/install-cri-docker.sh | 
+| installKubeCLIs | installkubeclis | Kubernetes CLIs | oracle | never | /vagrant/scripts/install-kube-clis.sh | 
+| kubeadmInit | kubeadminInit | Kubeadm Init | oracle | never | /vagrant/scripts/kubeadm-init.sh | 
+| installWeave | weavenet | Install latest Weave | oracle | never | /vagrant/scripts/install-weave.sh |
+
 
 ### Prepare Oracle Linux
 This script performs the following:

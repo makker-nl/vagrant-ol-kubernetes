@@ -7,10 +7,12 @@ overlay
 br_netfilter
 EOF
 
+echo
 echo Add modules overlay and br_netfilter
 sudo modprobe overlay
 sudo modprobe br_netfilter
 
+echo
 echo Add bridged networking properties to /etc/sysctl.d/k8s.conf
 # sysctl params required by setup, params persist across reboots
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
@@ -19,12 +21,15 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward                 = 1
 EOF
 
+echo
 echo Apply sysctl params without reboot
 sudo sysctl --system
 
+echo
 echo Verify if br_netfilter and overlay are running
 lsmod | grep br_netfilter
 lsmod | grep overlay
 
+echo
 echo Verify that the net.bridge.bridge-nf-call-iptables, net.bridge.bridge-nf-call-ip6tables, net.ipv4.ip_forward system variables are set to 1
 sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
