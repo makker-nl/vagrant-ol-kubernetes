@@ -5,8 +5,8 @@ Vagrant project to install Kubernetes cluster on Oracle Linux 8
 
 ## Provisioners
 
-| **Name** | **Provisoners.yaml entry** | **Run**| **Run as user** | **Script** | **Description** |
-|----------|----------------------------|--------|------------ | ---------------- |
+| **Name** | **Provisoners.yaml entry** | **Run** | **Run as user** | **Script** | **Description** |
+| -------- | -------------------------- | ------- | --------------- | ---------- | --------------- |
 | prepLinux  | preplinux | once | vagrant | /vagrant/scripts/ol8/0.PrepOL.sh | Prepare linux" |
 | initFileSystem | initfilesystem | once |  vagrant | /vagrant/scripts/ol8/1.FileSystem.sh | Initialize Filesystem on disk 2 |
 | addOracleUser | addoracleuser | once |  vagrant | /vagrant/scripts/ol8/2.MakeOracleUser.sh | Add Oracle User. |
