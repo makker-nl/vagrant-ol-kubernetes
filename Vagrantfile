@@ -13,6 +13,7 @@ provisioners = YAML.load_file 'provisioners.yml'
 # Environment settings
 VMS_HOME = settings['environment']['vmsHome']
 LOCAL_SCRIPTS = 'scripts'
+REMOTE_SCRIPTS = '/vagrant/scripts'
 RUN_AS_SCR = LOCAL_SCRIPTS+'/runAs.sh'
 #
 # Define the number of master and worker nodes
@@ -72,9 +73,9 @@ def vagrantProvisionDocker(vmconf, provisioner)
   runType = provisioner['run']
   dockerUser = provisioner['docker_user']
   dockerPassword = provisioner['docker_password']
-  scriptHome = LOCAL_SCRIPTS + provisioner['scriptHome']
-  script = LOCAL_SCRIPTS + provisioner['commonScript']
-  vmconf.vm.provision provisionerName, type: "shell", run: "never", run: runType, path: script, args: [description, scriptHome, runAsUser, dockerUser, dockerPassword]
+  scriptHome = provisioner['scriptHome']
+  docker_run_as_scr = LOCAL_SCRIPTS + provisioner['commonScript']
+  vmconf.vm.provision provisionerName, type: "shell", run: "never", run: runType, path: docker_run_as_scr, args: [description, scriptHome, runAsUser, dockerUser, dockerPassword]
 end
 #
 # Configure VMs

@@ -39,7 +39,5 @@ sudo systemctl status cri-docker.socket
 
 echo . Remove downloaded ${CRID_TAR}
 sudo rm -rf ./${CRID_TAR}
-echo . Change dir back to $CD
-cd $CD
-
-
+#echo . Change dir back to $CD
+#cd $CD

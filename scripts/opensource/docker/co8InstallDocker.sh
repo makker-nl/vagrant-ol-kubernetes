@@ -46,7 +46,7 @@ sudo usermod -aG ${DOCKER_GROUP} ${DOCKER_USER}
 echo 4. Check Docker install
 docker --version
 sudo systemctl start docker
-#sudo systemctl status docker
+sudo systemctl status docker
 #
 echo 5. Change docker default folder
 echo 5.1. Stop docker
@@ -57,7 +57,7 @@ echo 5.2. Add reference to data folders for storage.
 DOCKER_DATA_HOME=/app/docker/data
 DOCKER_STRT_STMT="ExecStart=/usr/bin/dockerd"
 DOCKER_STRT_STMT_EXP="${DOCKER_STRT_STMT} --data-root ${DOCKER_DATA_HOME}"
-DOCKER_SVC_SCR=/etc/systemd/system/docker.service
+DOCKER_SVC_SCR=/lib/systemd/system/docker.service
 echo mkdir -p ${DOCKER_DATA_HOME}
 sudo mkdir -p ${DOCKER_DATA_HOME}
 if grep -Fq "$DOCKER_STRT_STMT_EXP" $DOCKER_SVC_SCR
@@ -76,5 +76,6 @@ sudo systemctl start docker
 echo 5.6 Enable docker as a systemd service
 #https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-start-on-boot
 sudo systemctl enable docker
+sudo systemctl enable containerd
 echo 5.7 Grant permission to connect the Docker deamon
 sudo chmod 666 /var/run/docker.sock

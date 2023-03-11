@@ -42,7 +42,7 @@ docker:
   run: "never"
   docker_user: oracle
   docker_password: welcome1
-  scriptHome: "/opensource/docker"
+  scriptHome: "/vagrant/scripts/opensource/docker"
   commonScript: "/opensource/docker/co8InstallDockerAs.sh"
 cri-docker:
   name: "installCRIDocker"

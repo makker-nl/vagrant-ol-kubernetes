@@ -14,6 +14,6 @@ cat <<EOF |  sudo tee -a /etc/hosts
 192.168.56.11  kubemaster-1
 192.168.56.12  kubemaster-2
 192.168.56.21  kubeworker-1
-192.168.56.22  kubeworker-2#
+192.168.56.22  kubeworker-2
 192.168.56.30  lb
 EOF
