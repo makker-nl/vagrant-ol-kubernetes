@@ -125,6 +125,7 @@ Vagrant.configure("2") do |config|
         provision(config, provisioners['installkubeclis'])
         provision(config, provisioners['kubeadmin-init'])
         provision(config, provisioners['weavenet'])
+        provision(config, provisioners['genjoinclusterscript'])
       end
   end
   # Provision Worker Nodes
@@ -163,6 +164,7 @@ Vagrant.configure("2") do |config|
         vagrantProvisionDocker(config, provisioners['docker'])
         provision(config, provisioners['cri-docker'])
         provision(config, provisioners['installkubeclis'])
+        provision(config, provisioners['joincluster'])
     end
   end
   

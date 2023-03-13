@@ -68,3 +68,15 @@ weavenet:
   user: "oracle"
   run: "never"
   absoluteScript: "/vagrant/scripts/install-weave.sh"
+genjoinclusterscript:
+  name: "genJoinClusterScript"
+  description: "Generate Join Cluster script"
+  user: "oracle"
+  run: "never"
+  absoluteScript: "/vagrant/scripts/gen-join-cluster-scr.sh"
+joincluster:
+  name: "joinCluster"
+  description: "Join Cluster"
+  user: "oracle"
+  run: "never"
+  absoluteScript: "/vagrant/scripts/join-cluster.sh"
