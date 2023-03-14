@@ -1,4 +1,5 @@
 #!/bin/bash
+# From: https://www.howtogeek.com/devops/how-to-start-a-kubernetes-cluster-from-scratch-with-kubeadm-and-kubectl/
 SCRIPTPATH=$(dirname $0)
 echo Join $(hostname) to kubemaster-1 with token $KUBE_TOKEN and CA cert hash:  $KUBE_TOKEN_CA_CERT_HASH
 sudo kubeadm join kubemaster-1:6443 \

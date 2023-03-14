@@ -1,4 +1,5 @@
 #!/bin/bash
+# From: https://www.howtogeek.com/devops/how-to-start-a-kubernetes-cluster-from-scratch-with-kubeadm-and-kubectl/
 SCRIPTPATH=$(dirname $0)
 #
 SCRIPTHOME=/vagrant/scripts
