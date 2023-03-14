@@ -12,9 +12,9 @@ This Vagrant project is configurable through the [settings.yml](settings.yml). A
 | master/worker | | numOfNodes | Number of master or worker nodes. This project is not tested with multiple master nodes. | 1 |
 |               | | ipStart    | Offset to determine the IP as a sum with the node index, concatenated to environment.ipNetwork. For instance 192.168.56.11. | 10
 |               | | sshPortStart | Offset to determine the SSH NAT port for the node. | 2710 |
-|               | | machine: "kubemaster"
-|               | | name: "kubemaster"
-|               | | hostname: "kubemaster"
+|               | | machine | Value of the _config.vm.define_ construct, concatenated with the index of the node. This is used in the Vagrant output. | kubemaster |
+|               | | name | Name of the VM by VirtualBox as the provider, concatenated with the index of the node. Overrides the _machine_ attribute. | kubemaster |
+|               | | hostname | Hostname as set by Vagrant, concatenated with the index of the node. | kubemaster |
 |               | | vmMemory | preferably even multiples of 1024 MB. But least 4096 (4 x 1024 MB). Or 6144  (6 x 1024 MB), 8192 (8 x 1024 MB), 12288 ( 12 x 1024 MB) | 4096 |
 |               | | vmCpus | Number of CPUs per node. Should at least be 2.| 2 |
 |               | disks | controller | Name of the (SATA) Disk controller, as defined in the base box. | SATA Controller |
