@@ -56,7 +56,7 @@ The value in *Provisoners.yaml entry* is the root node of the provisioner in the
 The provisioners are run using the bash _runuser_ command, through the [runAs.sh](scripts/runAs.sh) script. Through this script the Vagrant provisioner can run the actual script via another Linux User.
 The *Run* column denotes when the provisioner is run:
 * **once**: only when provisioning at the first time *vagrant up* is performed. Or when the *vagrant provision* command is explicitly executed.
-* **always**: every time the *vagrant up* is performed, thus at every start up. This is handy for provisioners that start a database or a application server, for instance.
+* **always**: every time the *vagrant up* is performed, thus at every start-up. This is handy for provisioners that start a database or an application server, for instance.
 * **never**: only when the *vagrant provision* command is explicitly executed.
 
 Since this project is intended to train with installing Kubernetes, only the provisioners to setup Linux in the VMs are set to _once_. The others are set to never, but can be executed as a intermediate solution.
@@ -67,8 +67,8 @@ This script performs the following:
 * Upgrade package repository
 * Install packages: system-storage-manager
 * Install Haveged for entropy maximation
-* Disable Swap. This is necessary for Kubernetes. See [Discuss Kubernetes: Swap Off - why is it necessary?](https://discuss.kubernetes.io/t/swap-off-why-is-it-necessary/6879), [GitHub Kubernetes Issue #53533: Kubelet/Kubernetes should work with Swap Enabled]
-(https://github.com/kubernetes/kubernetes/issues/53533)
+* Disable Swap. This is necessary for Kubernetes. See [Discuss Kubernetes: Swap Off - why is it necessary?](https://discuss.kubernetes.io/t/swap-off-why-is-it-necessary/6879), 
+[GitHub Kubernetes Issue #53533: Kubelet/Kubernetes should work with Swap Enabled](https://github.com/kubernetes/kubernetes/issues/53533)
 * Enable ssh password login.
 
 ### Init File System
@@ -84,6 +84,32 @@ This script performs the following:
 * Add Oracle to sudoers so he can perform admin tasks
 * Grant/Change owner /app to oracle:oinstall 
 * Create /app/opensource for oracle:oinstall 
+
+### setupBridgedTraffic 
+This configures Linux for the network plugin. The script automate the steps as described in [Kubernetes docs - Install and configure prerequisites](https://kubernetes.io/docs/setup/production-environment/container-runtimes/).
+
+### installDocker
+There are diffeent choices for the Container Runtime engine. Like:
+* containerd
+* CRI-O
+* Docker Engine
+* Mirantis Container Runtime
+
+The  [Udemy/Kodekloud Certified Kubernetes Administrator Course project](https://github.com/kodekloudhub/certified-kubernetes-administrator-course) suggests _containerd_.
+In this setup Docker is chosen. More on the setup of 
+
+
+### installCRIDocker 
+
+### installKubeCLIs 
+
+### kubeadmInit 
+
+### installWeave 
+
+### genJoinClusterScript 
+
+### joinCluster 
 
 ## Take Snapshots
 The (Windows) script [takesnapshots.cmd](takesnapshots.cmd) creates a current snapshot for each of the VMs (kubemaster-1, kubeworker-1, and kubeworker-2.). The snapshots are indicated by the current date.

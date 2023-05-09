@@ -10,9 +10,9 @@ else
   echo OL8 developer EPEL repository already added.
 fi
 #
-echo Installing packages required by the software
+echo Installing packages required by the software (System Storage Manager and LVM)
 sudo dnf -y upgrade
-sudo dnf -y install system-storage-manager
+sudo dnf -y install system-storage-manager lvm2
 #
 # Install Haveged
 sudo dnf makecache
