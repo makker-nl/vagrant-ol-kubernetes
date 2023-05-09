@@ -71,11 +71,10 @@ def vagrantProvisionDocker(vmconf, provisioner)
   runType = provisioner['run']
   runAsUser = provisioner['user']
   runType = provisioner['run']
-  dockerUser = provisioner['docker_user']
-  dockerPassword = provisioner['docker_password']
+  dockerUser = provisioner['dockerUser']
   scriptHome = provisioner['scriptHome']
   docker_run_as_scr = LOCAL_SCRIPTS + provisioner['commonScript']
-  vmconf.vm.provision provisionerName, type: "shell", run: "never", run: runType, path: docker_run_as_scr, args: [description, scriptHome, runAsUser, dockerUser, dockerPassword]
+  vmconf.vm.provision provisionerName, type: "shell", run: "never", run: runType, path: docker_run_as_scr, args: [description, scriptHome, runAsUser, dockerUser]
 end
 #
 # Configure VMs

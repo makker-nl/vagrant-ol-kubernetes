@@ -5,8 +5,7 @@ SCRIPT_HOME=$2
 SCRIPT=$SCRIPT_HOME"/co8InstallDocker.sh"
 USR=$3
 export DCKR_USR=$4
-export DCKR_PWD=$5
-USER_PROPS=$SCRIPT_HOME/makeDockerUser.properties
+USER_PROPS=$SCRIPT_HOME/dockerUser.properties
 USER_PROPS_TPL=$USER_PROPS.tpl
 echo _______________________________________________________________________________
 echo Install $PROD on Oracle Linux 8 as $USR, with Docker User: $DCKR_USR

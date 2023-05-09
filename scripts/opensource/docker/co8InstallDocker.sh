@@ -1,13 +1,13 @@
 #!/bin/bash
 SCRIPTPATH=$(dirname $0)
 #
-# Install docker on CentOS 8 Linux.
+# Install docker on CentOS 8/RHEL 8/Oracle Linux 8.
 # @author: Martien van den Akker, Darwin-IT Professionals.
 # 
 # CentOS variant taken from https://docs.docker.com/engine/install/centos/
 #
 function prop {
-    grep "${1}" $SCRIPTPATH/makeDockerUser.properties|cut -d'=' -f2
+    grep "${1}" $SCRIPTPATH/dockerUser.properties|cut -d'=' -f2
 }
 #
 DOCKER_USER=$(prop 'docker.user')
@@ -32,10 +32,10 @@ echo . Add docker-ce repo
 sudo dnf install -y yum-utils
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 #
-echo . install docker-engine
-sudo dnf install -q -y docker-ce docker-ce-cli containerd.io
+echo . Install Docker Engine, including plugins.
+sudo dnf install -q -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 #
-echo 2. Install curl 
+echo 2. Install Curl 
 sudo dnf install -q -y  curl 
 #
 echo 3. Add  ${DOCKER_GROUP} group to ${DOCKER_USER}

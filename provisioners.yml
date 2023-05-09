@@ -40,8 +40,7 @@ docker:
   description: "Docker"
   user: "oracle"
   run: "never"
-  docker_user: oracle
-  docker_password: welcome1
+  dockerUser: oracle
   scriptHome: "/vagrant/scripts/opensource/docker"
   commonScript: "/opensource/docker/co8InstallDockerAs.sh"
 cri-docker:
