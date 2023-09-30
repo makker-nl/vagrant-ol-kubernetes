@@ -85,6 +85,11 @@ This script performs the following:
 * Grant/Change owner /app to oracle:oinstall 
 * Create /app/opensource for oracle:oinstall 
 
+### setupHosts 
+The script of this provisioner will determine the IP address of the current NIC (Network Interface Card). It will add this address to the /etc/hosts file. To get to the other nodes, it will add the assumed IP addresses of the other nodes to the /etc/hosts file.
+
+### updateDNS
+
 ### setupBridgedTraffic 
 This configures Linux for the network plugin. The script automate the steps as described in [Kubernetes docs - Install and configure prerequisites](https://kubernetes.io/docs/setup/production-environment/container-runtimes/).
 
