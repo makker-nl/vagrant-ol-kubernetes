@@ -112,12 +112,11 @@ Vagrant.configure("2") do |config|
         #node.vm.provision "setup-hosts", :type => "shell", :path => "scripts/setup-hosts.sh" do |s|
         #  s.args = ["eth1"]
         #end
-        #node.vm.provision "update-dns", type: "shell", :path => "scripts/update-dns.sh"        
-        provision(config, provisioners['setuphosts'])
-        provision(config, provisioners['updatedns'])       
         provision(config, provisioners['preplinux'])
         provision(config, provisioners['initfilesystem'])
         provision(config, provisioners['addoracleuser'])
+        provision(config, provisioners['setuphosts'])
+        provision(config, provisioners['updatedns'])       
         provision(config, provisioners['setupbridgedtraffic'])
         vagrantProvisionDocker(config, provisioners['docker'])
         provision(config, provisioners['cri-docker'])
@@ -153,10 +152,6 @@ Vagrant.configure("2") do |config|
         provision(config, provisioners['preplinux'])
         provision(config, provisioners['initfilesystem'])
         provision(config, provisioners['addoracleuser'])        
-        #node.vm.provision "setup-hosts", :type => "shell", :path => "scripts/setup-hosts.sh" do |s|
-        #  s.args = ["eth1"]
-        #end
-        #node.vm.provision "update-dns", type: "shell", :path => "scripts/update-dns.sh"
         provision(config, provisioners['setuphosts'])
         provision(config, provisioners['updatedns'])  
         provision(config, provisioners['setupbridgedtraffic'])
