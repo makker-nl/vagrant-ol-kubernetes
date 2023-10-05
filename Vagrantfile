@@ -85,7 +85,18 @@ Vagrant.configure("2") do |config|
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
   config.vm.box_check_update = false
-  
+  # Global provisioners
+  # For selecting which provisioner is run where, see:
+  # https://stackoverflow.com/questions/57913410/vagrant-multi-machine-provisions-every-machine
+  provision(config, provisioners['preplinux'])
+  provision(config, provisioners['initfilesystem'])
+  provision(config, provisioners['addoracleuser'])
+  provision(config, provisioners['setuphosts'])
+  provision(config, provisioners['updatedns'])       
+  provision(config, provisioners['setupbridgedtraffic'])
+  vagrantProvisionDocker(config, provisioners['docker'])
+  provision(config, provisioners['cri-docker'])
+  provision(config, provisioners['installkubeclis'])
   # Provision Master Nodes
   (1..NUM_MASTER_NODE).each do |i|
       config.vm.define settings['master']['machine']+"-#{i}" do |node|
@@ -108,22 +119,10 @@ Vagrant.configure("2") do |config|
         # Add Shared Folders
         add_shared_folder(node, nodeSettings['sharedFolders']['stage']) 
         add_shared_folder(node, nodeSettings['sharedFolders']['project']) 
-        # Provisioners
-        #node.vm.provision "setup-hosts", :type => "shell", :path => "scripts/setup-hosts.sh" do |s|
-        #  s.args = ["eth1"]
-        #end
-        provision(config, provisioners['preplinux'])
-        provision(config, provisioners['initfilesystem'])
-        provision(config, provisioners['addoracleuser'])
-        provision(config, provisioners['setuphosts'])
-        provision(config, provisioners['updatedns'])       
-        provision(config, provisioners['setupbridgedtraffic'])
-        vagrantProvisionDocker(config, provisioners['docker'])
-        provision(config, provisioners['cri-docker'])
-        provision(config, provisioners['installkubeclis'])
-        provision(config, provisioners['kubeadmin-init'])
-        provision(config, provisioners['weavenet'])
-        provision(config, provisioners['genjoinclusterscript'])
+        # Node provisioners
+        provision(node, provisioners['kubeadmin-init'])
+        provision(node, provisioners['weavenet'])
+        provision(node, provisioners['genjoinclusterscript'])
       end
   end
   # Provision Worker Nodes
@@ -148,17 +147,8 @@ Vagrant.configure("2") do |config|
         # Add Shared Folders
         add_shared_folder(node, nodeSettings['sharedFolders']['stage']) 
         add_shared_folder(node, nodeSettings['sharedFolders']['project']) 
-        # Provisioners
-        provision(config, provisioners['preplinux'])
-        provision(config, provisioners['initfilesystem'])
-        provision(config, provisioners['addoracleuser'])        
-        provision(config, provisioners['setuphosts'])
-        provision(config, provisioners['updatedns'])  
-        provision(config, provisioners['setupbridgedtraffic'])
-        vagrantProvisionDocker(config, provisioners['docker'])
-        provision(config, provisioners['cri-docker'])
-        provision(config, provisioners['installkubeclis'])
-        provision(config, provisioners['joincluster'])
+        # Node Provisioners
+        provision(node, provisioners['joincluster'])
     end
   end
   

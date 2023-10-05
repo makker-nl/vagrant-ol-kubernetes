@@ -2,7 +2,7 @@
 Vagrant project to install Kubernetes cluster on Oracle Linux 8
 This project is based on [Certified Kubernetes Administrator (CKA) Course](https://github.com/kodekloudhub/certified-kubernetes-administrator-course).
 
-<img src="docs/K8S-Architecture.png" width="781" height="467" />
+<img src="docs/K8S-Architecture.png" width="800" height="467" />
 
 ## Settings
 This Vagrant project is configurable through the [settings.yml](settings.yml). A description of the settings are in the next table.
